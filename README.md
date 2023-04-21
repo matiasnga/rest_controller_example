@@ -17,9 +17,9 @@ La solución debe incluir el código fuente completo, documentación detallada s
 
 El entregable deberá ser la URL de un repositorio Git público para que podamos descargar directamente.
 
+# Ejecutar aplicacion RestControllerExampleApplication.java
 
-# get employess
-https://rest-controller-api.herokuapp.com/employees/
-
+# Documentacion Swagger
+http://localhost:8080/swagger-ui/index.html
 
 
