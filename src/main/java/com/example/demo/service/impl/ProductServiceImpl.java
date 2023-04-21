@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.Product;
-import com.example.demo.dto.ProductDto;
 import com.example.demo.mappers.ProductMapper;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
@@ -18,8 +17,6 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
-    @Autowired
-    ProductMapper productMapper;
 
     @Override
     public Product saveProduct(Product newProduct) {
@@ -28,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Long id, Product updateProduct) {
-        Product findProductToUpdate = this.findProductById(id);
+        this.findProductById(id);
         updateProduct.setId(id);
         return productRepository.save(updateProduct);
     }
