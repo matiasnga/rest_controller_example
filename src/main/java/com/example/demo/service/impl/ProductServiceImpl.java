@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(Long id, Product updateProduct) {
-        Product findProductToUpdate = this.findProductById(id);
+        this.findProductById(id);
         updateProduct.setId(id);
         return productRepository.save(updateProduct);
     }
@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró el producto con id " + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -53,6 +53,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProductById(Long id) {
+        this.findProductById(id);
         productRepository.deleteById(id);
     }
 
