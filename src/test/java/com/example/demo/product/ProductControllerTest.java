@@ -1,7 +1,8 @@
-package com.example.demo.employee;
+package com.example.demo.product;
 
 import com.example.demo.DemoApplicationTests;
 import com.example.demo.domain.Product;
+import com.example.demo.dto.ProductDto;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -15,46 +16,46 @@ public class ProductControllerTest extends DemoApplicationTests {
     @Test
     @SneakyThrows
     public void saveProduct_withFieldsValid_ReturnStatus201Created() {
-        Product product = new Product();
-        product.setName("Speaker");
-        product.setDescription("JBL 300");
-        product.setPrice(99.3);
-        product.setQuantity(1);
+        ProductDto productdto = new ProductDto();
+        productdto.setNombre("Speaker");
+        productdto.setDescripcion("JBL 300");
+        productdto.setPrecio(99.3);
+        productdto.setCantidad(1);
         Gson gson = new Gson();
-        String jsonRequest = gson.toJson(product);
+        String jsonRequest = gson.toJson(productdto);
 
         mockMvc.perform(post("/product")
                         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .content(jsonRequest))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath(".id").value(4))
-                .andExpect(jsonPath(".name").value("Speaker"))
-                .andExpect(jsonPath(".description").value("JBL 300"))
-                .andExpect(jsonPath(".price").value(99.3))
-                .andExpect(jsonPath(".quantity").value(1));
+                .andExpect(jsonPath(".nombre").value("Speaker"))
+                .andExpect(jsonPath(".descripcion").value("JBL 300"))
+                .andExpect(jsonPath(".precio").value(99.3))
+                .andExpect(jsonPath(".cantidad").value(1));
     }
 
     @Test
     @SneakyThrows
     public void updateProduct_withFieldsValid_ReturnStatus201Created() {
         long id = 1L;
-        Product product = new Product();
-        product.setName("CD");
-        product.setDescription("Rubber Soul - The Beatles");
-        product.setPrice(15);
-        product.setQuantity(5);
+        ProductDto productDto = new ProductDto();
+        productDto.setNombre("CD");
+        productDto.setDescripcion("Rubber Soul - The Beatles");
+        productDto.setPrecio(25);
+        productDto.setCantidad(5);
         Gson gson = new Gson();
-        String jsonRequest = gson.toJson(product);
+        String jsonRequest = gson.toJson(productDto);
 
         mockMvc.perform(put("/product/" + id)
                         .contentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE))
                         .content(jsonRequest))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath(".id").value(1))
-                .andExpect(jsonPath(".name").value("CD"))
-                .andExpect(jsonPath(".description").value("Rubber Soul - The Beatles"))
-                .andExpect(jsonPath(".price").value(15.0))
-                .andExpect(jsonPath(".quantity").value(5));
+                .andExpect(jsonPath(".nombre").value("CD"))
+                .andExpect(jsonPath(".descripcion").value("Rubber Soul - The Beatles"))
+                .andExpect(jsonPath(".precio").value(25.0))
+                .andExpect(jsonPath(".cantidad").value(5));
     }
 
     @Test
@@ -81,10 +82,10 @@ public class ProductControllerTest extends DemoApplicationTests {
         mockMvc.perform(get("/product/findById/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(".id").value(2))
-                .andExpect(jsonPath(".name").value("CD"))
-                .andExpect(jsonPath(".description").value("Rubber Soul - The Beatles"))
-                .andExpect(jsonPath(".price").value(19.99))
-                .andExpect(jsonPath(".quantity").value(2));
+                .andExpect(jsonPath(".nombre").value("CD"))
+                .andExpect(jsonPath(".descripcion").value("Rubber Soul - The Beatles"))
+                .andExpect(jsonPath(".precio").value(19.99))
+                .andExpect(jsonPath(".cantidad").value(2));
     }
 
     @Test
@@ -101,10 +102,10 @@ public class ProductControllerTest extends DemoApplicationTests {
         mockMvc.perform(get("/product/findByName?name=" + name))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(2))
-                .andExpect(jsonPath("$[0].name").value("CD"))
-                .andExpect(jsonPath("$[0].description").value("Rubber Soul - The Beatles"))
-                .andExpect(jsonPath("$[0].price").value(19.99))
-                .andExpect(jsonPath("$[0].quantity").value(2));
+                .andExpect(jsonPath("$[0].nombre").value("CD"))
+                .andExpect(jsonPath("$[0].descripcion").value("Rubber Soul - The Beatles"))
+                .andExpect(jsonPath("$[0].precio").value(19.99))
+                .andExpect(jsonPath("$[0].cantidad").value(2));
     }
 
     @Test
@@ -123,21 +124,21 @@ public class ProductControllerTest extends DemoApplicationTests {
         mockMvc.perform(get("/product/listAll"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(3))
-                .andExpect(jsonPath("$[0].name").value("Pencil"))
-                .andExpect(jsonPath("$[0].description").value("Blue Ink Pencil"))
-                .andExpect(jsonPath("$[0].price").value(0.95))
-                .andExpect(jsonPath("$[0].quantity").value(20))
+                .andExpect(jsonPath("$[0].nombre").value("Pencil"))
+                .andExpect(jsonPath("$[0].descripcion").value("Blue Ink Pencil"))
+                .andExpect(jsonPath("$[0].precio").value(0.95))
+                .andExpect(jsonPath("$[0].cantidad").value(20))
 
                 .andExpect(jsonPath("$[1].id").value(1))
-                .andExpect(jsonPath("$[1].name").value("Book"))
-                .andExpect(jsonPath("$[1].description").value("It - Stephen King"))
-                .andExpect(jsonPath("$[1].price").value(10.05))
-                .andExpect(jsonPath("$[1].quantity").value(1))
+                .andExpect(jsonPath("$[1].nombre").value("Book"))
+                .andExpect(jsonPath("$[1].descripcion").value("It - Stephen King"))
+                .andExpect(jsonPath("$[1].precio").value(10.05))
+                .andExpect(jsonPath("$[1].cantidad").value(1))
 
                 .andExpect(jsonPath("$[2].id").value(2))
-                .andExpect(jsonPath("$[2].name").value("CD"))
-                .andExpect(jsonPath("$[2].description").value("Rubber Soul - The Beatles"))
-                .andExpect(jsonPath("$[2].price").value(19.99))
-                .andExpect(jsonPath("$[2].quantity").value(2));
+                .andExpect(jsonPath("$[2].nombre").value("CD"))
+                .andExpect(jsonPath("$[2].descripcion").value("Rubber Soul - The Beatles"))
+                .andExpect(jsonPath("$[2].precio").value(19.99))
+                .andExpect(jsonPath("$[2].cantidad").value(2));
     }
 }

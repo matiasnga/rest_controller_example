@@ -1,6 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.domain.Product;
+import com.example.demo.dto.ProductDto;
+import com.example.demo.mappers.ProductMapper;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ProductMapper productMapper;
 
     @Override
     public Product saveProduct(Product newProduct) {
