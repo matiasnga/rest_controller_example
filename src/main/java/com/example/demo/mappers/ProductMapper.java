@@ -22,10 +22,6 @@ public interface ProductMapper {
     @Mapping(source = "quantity", target = "cantidad")
     ProductDto productToProductDto(Product product);
 
-    @Mapping(source = "nombre", target = "name")
-    @Mapping(source = "descripcion", target = "description")
-    @Mapping(source = "precio", target = "price")
-    @Mapping(source = "cantidad", target = "quantity")
     List<ProductDto> productListToProductListDto(List<Product> productList);
 
 
